@@ -1,51 +1,45 @@
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * The test class TestGestorUsuarios.
- *
- * @author  (your name)
- * @version (a version number or a date)
- */
-public class TestGestorUsuarios
-{
-    /**
-     * Default constructor for test class TestGestorUsuarios
-     */
-    public TestGestorUsuarios()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @BeforeEach
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @AfterEach
-    public void tearDown()
-    {
+public class TestGestorUsuarios{
+    public TestGestorUsuarios(){
     }
     
     @Test
-    public void registrarUsuario(){
-        GestorUsuarios g = new GestorUsuarios();
+    public void registrarUsuarioConNombreCorto(){
+        GestorUsuario gestorDePrueba = new GestorUsuario();
+        String nombre = "F";
+        String correo = "fxrnandofernandez@gmail.com";
+        String contrasenia = "contra123";
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> gestorDePrueba.registrarUsuario(nombre, correo, contrasenia)
+        );
+    }
+    @Test
+    public void registrarUsuarioConNombreCorrecto(){
+        GestorUsuario gestorDePrueba = new GestorUsuario();
         String nombre = "Fernando";
         String correo = "fxrnandofernandez@gmail.com";
-        String res = g.registrarUsuario(nombre, correo);
-        assertEquals("Registro exitoso", res);
+        String contrasenia = "contra123";
+        Usuario resultado = gestorDePrueba.registrarUsuario(
+                                    nombre,correo,contrasenia);
+        assertNotNull(resultado);
+    }
+    
+    @Test
+    public void registrarUsuarioSinNombre(){
+        GestorUsuario g = new GestorUsuario();
+        String nombre = "";
+        String correo = "fernando@gmail.com";
+        String contrasenia = "contra123";
+        
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> g.registrarUsuario(nombre, correo, contrasenia)
+        );
     }
 }
