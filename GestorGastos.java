@@ -8,13 +8,18 @@ import java.util.ArrayList;
  */
 public class GestorGastos
 {
-    private ArrayList<Gasto> g ;
-    public String registrarGasto(int gasto){
+    
+    public String registrarGasto(Dinero monto, String descripcion, String fecha, String categoria){
         String mensaje;
-        if(gasto > 0){
+    
+        if(categoria == null){
+            mensaje = "Debe llenar la categoria";
+        }else if(descripcion == null){
+            mensaje = "Debe llenar la descripcion";
+        }else if(monto == null){
+            mensaje = "El monto esta vacio";
+        }else{
             mensaje = "Registro exitoso";
-        }else {
-            mensaje = "Cantidad no valida";    
         }
         return mensaje;
     }

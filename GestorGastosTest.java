@@ -11,11 +11,13 @@ import org.junit.jupiter.api.Test;
  */
 public class GestorGastosTest
 {
+    private GestorGastos gestor;
     /**
      * Default constructor for test class xd
      */
     public GestorGastosTest()
     {
+        
     }
 
     /**
@@ -26,6 +28,7 @@ public class GestorGastosTest
     @BeforeEach
     public void setUp()
     {
+        gestor = new GestorGastos();
     }
 
     /**
@@ -37,21 +40,44 @@ public class GestorGastosTest
     public void tearDown()
     {
     }
-    
-    @Test
-    public void registrarGastoMayorACero(){
-        GestorGastos gasto1 = new GestorGastos();
-        int gastoRealizado  = 5;
-        String resultado = gasto1.registrarGasto(gastoRealizado);
-        assertEquals("Registro exitoso", resultado);
-    }
 
     @Test
-    public void registrarGastoNoPositivo(){
-        GestorGastos gasto1 = new GestorGastos();
-        int gastoRegistrado = -2;
-        String resultado = gasto1.registrarGasto(gastoRegistrado);
-        assertEquals("Cantidad no valida", resultado);
+    public void testMensajeDeRegistroExitoso(){
+        Dinero monto = new Dinero("200");
+        String descripcion = "Compre un teclado gamer";
+        String fecha = Fecha.obtenerFechaYHora();
+        String categoria = "Gadgets";
+        String resultado = gestor.registrarGasto(monto, descripcion, fecha, categoria);
+        assertEquals("Registro exitoso", resultado);
     }
     
+    @Test
+    public void testCategoriaVaciaMensajeDeLlenadoObligatorio(){
+        Dinero monto = new Dinero("100");
+        String descripcion = "";
+        String fecha = Fecha.obtenerFechaYHora();
+        String categoria = null;
+        String resultado = gestor.registrarGasto(monto, descripcion, fecha, categoria);
+        assertEquals("Debe llenar la categoria", resultado);
     }
+    
+    @Test 
+    public void testDescripcionVaciaMensajeDeLLenadoObligatorio(){
+        Dinero monto = new Dinero("150");
+        String descripcion = null;
+        String fecha = Fecha.obtenerFechaYHora();
+        String categoria = "Alimentacion";
+        String resultado = gestor.registrarGasto(monto, descripcion, fecha, categoria);
+        assertEquals("Debe llenar la descripcion", resultado);
+    }
+    
+    @Test
+     public void testMontoVacioMensajeDeLLenadoObligatorio(){
+        Dinero monto = null;
+        String descripcion = "Compre una salchipapa";
+        String fecha = Fecha.obtenerFechaYHora();
+        String categoria = "Alimentacion";
+        String resultado = gestor.registrarGasto(monto, descripcion, fecha, categoria);
+        assertEquals("El monto esta vacio", resultado);
+    }
+}

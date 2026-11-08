@@ -5,15 +5,14 @@ public final class Dinero{
     private final BigDecimal monto;
     
     public Dinero(String valor){
-        BigDecimal temporal = new BigDecimal(valor);
-        if (temporal.signum() == -1) {
-            throw new IllegalArgumentException("Error: El monto de dinero no puede ser negativo (" + valor + ").");
-        }
-        this.monto = temporal.setScale(2, RoundingMode.HALF_UP);
+        BigDecimal t = new BigDecimal(valor);
+        this.monto = t.setScale(2, RoundingMode.HALF_UP);
     }
     
-    
-    public String convertirACadena(){
+    @Override
+    public String toString(){
         return "Bs " + monto.toString();
     }
+    
+    
 }

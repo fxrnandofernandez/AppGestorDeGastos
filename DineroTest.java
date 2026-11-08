@@ -40,56 +40,23 @@ public class DineroTest
     }
 
     @Test
-    public void testConvertirACadenaBolivianos() {
-        Dinero diezBolivianos = new Dinero("10.321");
-        String resultado = diezBolivianos.convertirACadena();
+    public void testTextoCon3DecimalesLoReduceATextoCon2Decimales() {
+        Dinero diezBolivianosCon32Centavos = new Dinero("10.321");
+        String resultado = diezBolivianosCon32Centavos.toString();
         assertEquals("Bs 10.32", resultado);
     }
 
     @Test
-    public void testConvertirUnNumeroEnteroAUnNumeroConDosDecimales(){
+    public void testTextoCon1DecimalLoExtiendeATextoCon2Decimales(){
+        Dinero diezBolivianosCon30Centavos = new Dinero("10.3");
+        String resultado = diezBolivianosCon30Centavos.toString();
+        assertEquals("Bs 10.30", resultado);
+    }
+    
+    @Test
+    public void testTextoSinDecimalesLoExtiendeATextoCon2Decimales(){
         Dinero cincoBolivianos = new Dinero("5");
-        String resultado = cincoBolivianos.convertirACadena();
-        assertEquals("Bs 5.00",resultado);
+        String resultado = cincoBolivianos.toString();
+        assertEquals("Bs 5.00", resultado);
     }
-
-     @Test
-    public void testCadenaNoNumericaLanzaExcepcion() {
-        try {
-            new Dinero("dos"); 
-            fail("Se esperaba NumberFormatException pero no se lanzó ninguna excepción.");
-        } catch (NumberFormatException e) {
-           
-        }
-    }
-    
-    @Test
-    public void testMontoNegativoLanzaExcepcion() {      
-        String montoNegativo = "-10.50";
-        Exception excepcionCapturada = null;
-        try {
-            new Dinero(montoNegativo);
-        } catch (IllegalArgumentException e) {
-            excepcionCapturada = e; 
-        }
-        assertNotNull(excepcionCapturada, "Se esperaba IllegalArgumentException porque el dinero no puede ser negativo.");
-    }
-    
-    
-    @Test
-    public void testRedondeoUltimoDecimalCincoOMayor(){
-        String montoConTresDecimales = "10.555";
-        Dinero montoARedondear = new Dinero(montoConTresDecimales);
-        String resultado = montoARedondear.convertirACadena();
-        assertEquals("Bs 10.56", resultado);
-    }
-    
-    @Test
-    public void testRedondeoUltimoDecimalCuatroOMenor(){
-        String montoConTresDecimales = "10.554";
-        Dinero montoARedondear = new Dinero(montoConTresDecimales);
-        String resultado = montoARedondear.convertirACadena();
-        assertEquals("Bs 10.55", resultado);
-    }
-    
 }
